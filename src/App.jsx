@@ -2,7 +2,6 @@ import { Container } from "react-bootstrap";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import FormVet from "./components/FormVet";
-import ShowDates from "./components/ShowDates";
 
 function App() {
   return (
@@ -11,7 +10,6 @@ function App() {
         Administrador pacientes de veterinaria
       </h1>
       <FormVet/>
-      <ShowDates/>
     </Container>
   );
 }
