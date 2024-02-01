@@ -18,21 +18,45 @@ const FormVet = () => {
   }, [arryAppoint]);
   const handleChange = (e) => {
     e.preventDefault();
-    const newAppoint = {
-      pet: pet,
-      name: name,
-      date: date,
-      time: time,
-      symptoms: symptoms,
-    };
-    console.log(newAppoint);
-    setPet("");
-    setName("");
-    setDate("");
-    setTime("");
-    setSymptoms("");
-    setArryAppoint([...arryAppoint, newAppoint]);
+    const currentDate = new Date();
+    const minimumDate = new Date(currentDate);
+    minimumDate.setDate(currentDate.getDate() - 1);
+    const maximumDate = new Date(currentDate);
+    maximumDate.setMonth(currentDate.getMonth() + 3);
+
+    const minimumTime = new Date();
+    minimumTime.setHours(9, 0, 0);
+    const maximumTime = new Date();
+    maximumTime.setHours(21, 0, 0);
+    console.log(new Date(date));
+    console.log(currentDate);
+    if (
+      pet.length < 1 ||
+      name.length < 2 ||
+      symptoms.length < 4 ||
+      new Date(date) < minimumDate ||
+      new Date(date) > maximumDate ||
+      new Date(time) < minimumTime ||
+      new Date(time) > maximumTime
+    ) {
+      alert("Ingrese los datos correctos");
+    } else {
+      const newAppoint = {
+        pet: pet,
+        name: name,
+        date: date,
+        time: time,
+        symptoms: symptoms,
+      };
+      setPet("");
+      setName("");
+      setDate("");
+      setTime("");
+      setSymptoms("");
+      setArryAppoint([...arryAppoint, newAppoint]);
+    }
   };
+
   const dltAppoint = (index) => {
     const filteredArray = arryAppoint.filter((_, i) => i !== index);
     setArryAppoint(filteredArray);
@@ -59,6 +83,7 @@ const FormVet = () => {
                   value={pet}
                   name={pet}
                   onChange={(e) => setPet(e.target.value)}
+                  required
                 />
               </div>
             </Form.Group>
@@ -73,6 +98,7 @@ const FormVet = () => {
                   value={name}
                   name={name}
                   onChange={(e) => setName(e.target.value)}
+                  required
                 />
               </div>
             </Form.Group>
@@ -88,6 +114,7 @@ const FormVet = () => {
                       value={date}
                       name={date}
                       onChange={(e) => setDate(e.target.value)}
+                      required
                     />
                   </div>
                 </Form.Group>
@@ -103,6 +130,7 @@ const FormVet = () => {
                       value={time}
                       name={time}
                       onChange={(e) => setTime(e.target.value)}
+                      required
                     />
                   </div>
                 </Form.Group>
@@ -115,10 +143,10 @@ const FormVet = () => {
               <div className="col-10">
                 <Form.Control
                   type="text"
-                  placeholder="Vomitos, Cansancio, etc"
                   value={symptoms}
                   name={symptoms}
                   onChange={(e) => setSymptoms(e.target.value)}
+                  required
                 />
               </div>
             </Form.Group>
